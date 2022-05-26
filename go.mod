@@ -2,7 +2,10 @@ module github.com/bots-garden/capsule
 
 go 1.18
 
-require github.com/suborbital/reactr v0.15.1
+require (
+	github.com/suborbital/reactr v0.15.1
+	github.com/suborbital/vektor v0.5.2
+)
 
 require (
 	github.com/bytecodealliance/wasmtime-go v0.35.0 // indirect
@@ -25,7 +28,6 @@ require (
 	github.com/second-state/WasmEdge-go v0.9.0-rc5 // indirect
 	github.com/sethvargo/go-envconfig v0.5.0 // indirect
 	github.com/suborbital/grav v0.5.0 // indirect
-	github.com/suborbital/vektor v0.5.2 // indirect
 	github.com/wasmerio/wasmer-go v1.0.4 // indirect
 	golang.org/x/crypto v0.0.0-20220307211146-efcb8507fb70 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
