@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "serve local wasm file",
+      "type": "shell",
+      "command": "SAT_HTTP_PORT=${input:http_port} sat ${input:wasm_file}"
+    },
+    {
+      "label": "serve https wasm file",
+      "type": "shell",
+      "command": "SAT_HTTP_PORT=${input:http_port} sat $(gp url 3000)/${input:wasm_file}"
+    },
+  ],
+  "inputs": [
+    {
+      "id": "wasm_file",
+      "description": "wasm file name:",
+      "default": "",
+      "type": "promptString"
+    },
+    {
+      "id": "http_port",
+      "description": "http port:",
+      "default": "8080",
+      "type": "promptString"
+    },
+]
+}
