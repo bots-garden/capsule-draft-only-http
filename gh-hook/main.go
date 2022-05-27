@@ -1,9 +1,13 @@
 package main
 
 import (
+
 	"github.com/suborbital/reactr/api/tinygo/runnable"
+	"github.com/suborbital/reactr/api/tinygo/runnable/http"
 	"github.com/suborbital/reactr/api/tinygo/runnable/log"
 	"github.com/tidwall/gjson"
+	"github.com/tidwall/sjson"
+
 )
 
 type GhHook struct{}
@@ -30,6 +34,29 @@ func (h GhHook) Run(args []byte) ([]byte, error) {
 	user := gjson.GetBytes(args, "parameters.issue.user.login")
 
 	log.Info("📝: " + title.Str + " by " + user.Str)
+
+	/*
+		 ```
+		 func POST(url string, body []byte, headers map[string]string) ([]byte, error) {
+				return do(method.POST, url, body, headers)
+			}
+		 ```
+	*/
+	slackMessage, _ := sjson.Set(`{"text":""}`, "text", "📝: " + title.Str + " by " + user.Str)
+
+	headers := make(map[string]string)
+
+	headers["Content-type"] = "application/json; charset=utf-8"
+
+
+	hookUrl := gjson.GetBytes(args, "settings.hook")
+
+	log.Info("🌍: " + hookUrl.Str)
+	log.Info("📝: " + slackMessage)
+	log.Info("🤯: " + headers["Content-type"])
+
+
+	http.POST(hookUrl.Str, []byte(slackMessage), headers)
 
 	return []byte("Hello 🐙"), nil
 }

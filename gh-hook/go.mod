@@ -3,6 +3,7 @@ module vendor.suborbital.network/gh-hook
 require (
 	github.com/suborbital/reactr v0.15.1
 	github.com/tidwall/gjson v1.14.1
+	github.com/tidwall/sjson v1.2.4
 )
 
 require (
