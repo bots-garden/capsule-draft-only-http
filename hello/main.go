@@ -13,7 +13,7 @@ type Hello struct{}
 func (h Hello) Run(args []byte) ([]byte, error) {
 
 	//http.Get("")
-	//log.Info("👋 " + string(args))
+	log.Info("👋 " + string(args))
 
 	token := gjson.GetBytes(args, "settings.token")
 	
