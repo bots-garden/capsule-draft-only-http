@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+
 	"github.com/suborbital/reactr/rt"
 	"github.com/suborbital/reactr/rwasm"
 	"github.com/suborbital/vektor/vk"
@@ -78,7 +79,7 @@ func main() {
 	server.POST("/", wasmHandler)
 
 	if err := server.Start(); err != nil {
-    log.Fatal(err)
+		log.Fatal(err)
 	}
 
 }
