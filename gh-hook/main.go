@@ -12,6 +12,7 @@ import (
 
 type GhHook struct{}
 
+// Triggered by a GitHub WebHook
 func (h GhHook) Run(args []byte) ([]byte, error) {
 	/* 🖐️ the structure of Json payload in `args`:
 	   ```json
@@ -21,7 +22,6 @@ func (h GhHook) Run(args []byte) ([]byte, error) {
 		 }
 		 ```
 	*/
-	//log.Info("👋 " + string(args))
 
 	// Get information about the issue
 	//action := gjson.GetBytes(args, "parameters.issue.action")
@@ -35,27 +35,18 @@ func (h GhHook) Run(args []byte) ([]byte, error) {
 
 	log.Info("📝: " + title.Str + " by " + user.Str)
 
-	/*
-		 ```
-		 func POST(url string, body []byte, headers map[string]string) ([]byte, error) {
-				return do(method.POST, url, body, headers)
-			}
-		 ```
-	*/
 	slackMessage, _ := sjson.Set(`{"text":""}`, "text", "📝: " + title.Str + " by " + user.Str)
 
 	headers := make(map[string]string)
-
 	headers["Content-type"] = "application/json; charset=utf-8"
-
 
 	hookUrl := gjson.GetBytes(args, "settings.hook")
 
 	log.Info("🌍: " + hookUrl.Str)
 	log.Info("📝: " + slackMessage)
 	log.Info("🤯: " + headers["Content-type"])
-
-
+	
+	// Post message to Slack
 	http.POST(hookUrl.Str, []byte(slackMessage), headers)
 
 	return []byte("Hello 🐙"), nil
